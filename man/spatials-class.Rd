@@ -4,7 +4,7 @@
 \name{spatials-class}
 \alias{spatials-class}
 \alias{spatials}
-\title{The spatials class}
+\title{the spatials class}
 \description{
 An S4 object that stores multiple sp objects, but only one sp object is activated at the same time
 }
