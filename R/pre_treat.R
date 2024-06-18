@@ -10,7 +10,7 @@
 #'  x <- removeRowsAllNa(x)
 #' }
 removeRowsAllNa  <- function(object){
-  if (!is.data.frame(object) || !is.matrix(object)){
+  if (!is.data.frame(object) & !is.matrix(object)){
     stop("the input data must be data.frame or matrix")
   }
   object[apply(object, 1, function(object) any(!is.na(object))),]

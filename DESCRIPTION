@@ -4,12 +4,11 @@ Title: an R package for data analysis of spatial proteomics derived from micro-F
 Version: 0.1.0
 Author: Haichao Zhou
 Maintainer: Haichao Zhou <zhouhaichao@genomics.cn>
-Description: none
+Description: an R package for data analysis of spatial proteomics derived from micro-FFPE tissues.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
-biocViews:
 Imports: 
     magrittr,
     limma,
@@ -21,3 +20,10 @@ Collate:
     'pre_treat.R'
     'object.R'
     'utils-pipe.R'
+biocViews: AlternativeSplicing, BatchEffect, Bayesian, BiomedicalInformatics, CellBiology,
+           Cheminformatics, Clustering, DataImport, DifferentialExpression, DifferentialSplicing,
+           Epigenetics, ExonArray, FunctionalGenomics, GeneExpression, GeneSetEnrichment, Genetics,
+           ImmunoOncology, Metabolomics, MicroRNAArray, Microarray, MultipleComparison, Normalization,
+           OneChannel, Preprocessing, ProprietaryPlatforms, Proteomics, QualityControl, RNASeq,
+           Regression, Sequencing, Software, SystemsBiology, TimeCourse, Transcription, Transcriptomics,
+           TwoChannel, mRNAMicroarray

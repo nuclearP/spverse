@@ -2,15 +2,16 @@
 #'
 NULL
 
+
 #' the sp class
 #'
 #' class designed for one experiment
-#'
 #' @slot rawdata data.frame.
 #' @slot features data.frame.
 #' @slot scaledata data.frame.
 #' @slot dim list.
-#' @exportClass sp
+#' @return
+#' @export
 sp <- setClass(
   "sp",
   slots = c(
@@ -18,9 +19,21 @@ sp <- setClass(
     features = "data.frame",
     scaledata = "data.frame",
     dim = "list"
-  ),
-  prototype = list(features = NULL,scaledata = NULL,dim = NULL)
+  )
 )
+
+#' @method [ sp
+#' @export
+`[.sp` <- function(x, i, j, ...) {
+  y <- x@feature[i, j, ...]
+  return(y)
+}
+
+##' @method $ sp
+##' @export
+`$.sp` <-  function(x, name) {
+  x@rawdata[, name]
+}
 
 #' creatsp
 #'
@@ -40,17 +53,21 @@ creatsp <- function(
   if(!file.exists(rawdata)){
     stop("Original data not found")
   }
-  rawdata <- fread(rawdata)
-  row.names(rawdata) <- rawdata$p
-  rawdata <- rawdata[-p]
+  rawdata <- fread(rawdata) %>% as.data.frame()
+  rownames(rawdata) <- rawdata$p
+  rawdata <- subset(rawdata,select = -p)
+
+  int.scaledata <- data.frame()
 
   if(!file.exists(location)){
-    object <- new(Class = "sp",rawdata = rawdata)
+    int.features <- data.frame(samples = colnames(rawdata))
+    object <- new(Class = "sp",rawdata = rawdata,features = int.features,sclaedata = int.scaledata,dim = list())
   }else{
     location <- fread(location)
-    object <- new(Class = "sp",rawdata = rawdata,features = location)
+    object <- new(Class = "sp",rawdata = rawdata,features = location,scaledata = int.scaledata,dim = list()
+                  )
   }
-  object
+  return(object)
 }
 
 #' @export
@@ -70,13 +87,14 @@ setMethod("mean_cv","sp",function(object){
   feature <- colSums(!is.na(object@rawdata)) %>% as.data.frame()
   colnames(feature) <- "num"
   feature$samples <- row.names(feature)
-  feature$means <- apply(object@rawdata,1,mean,na.rm = T)
-  feature$cvs <- apply(object@rawdata,1,removena_cv)
+  feature$means <- apply(object@rawdata,2,mean,na.rm = T)
+  feature$cvs <- apply(object@rawdata,2,removena_cv)
   if(is.null(object@features)){
     object@features <- feature
   }else{
     object@features <- merge(object@features,feature,by = "samples")
   }
+  return(object)
 }
 )
 
@@ -104,13 +122,14 @@ setMethod("normlization","sp",function(object,meancut,cvcut){
   if(!is.numeric(cvcut)){
     stop("cvcut should be a numerical value")
   }
-  selected <- subset(object@features,means < meancut,cvs < cvcut)
-  scaledata <- object@rawdata[selected$samples]
+  selected <- subset(object@features,means < meancut & cvs < cvcut)
+  scaledata <- subset(object@rawdata,select = selected$samples)
   if(nrow(scaledata) < 1){
     stop("All data is filtered")
   }
-  scaledata <- removeRowsAllNa(scaledata) %>% normalizeQuantiles(scaledata)
+  scaledata <- removeRowsAllNa(scaledata) %>% normalizeQuantiles()
   object@scaledata <- scaledata
+  return(object)
 }
 )
 
@@ -128,5 +147,21 @@ spatials <- setClass(
     active = "character"
   )
 )
+
+#' @name show
+setMethod(
+  f = 'show',
+  signature = 'sp',
+  definition = function(object) {
+    cat(
+      class(object)[1],
+      'data with',
+      ncol(object@rawdata),
+      'samples for',
+      nrow(object@rawdata), 'features\n'
+    )
+}
+)
+
 
 
