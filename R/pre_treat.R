@@ -35,13 +35,13 @@ removena_sd = function(x){
 #' @param na.rm logical; if true, any NA and NaN's are removed from x before the quantiles are computed
 #' @param ... further arguments passed to or from other methods
 #' @export
-remove_outliers <- function(x,n,na.rm = TRUE, ...) {
+remove_outliers <- function(x,n = 3,na.rm = TRUE, ...) {
   qnt <- quantile(x, probs = c(.25, .75), na.rm = na.rm, ...)
-  val <- 3 * IQR(x, na.rm = na.rm)
+  val <- n * IQR(x, na.rm = na.rm)
   y <- x
   y[x < (qnt[1] - val)] <- NA
   y[x > (qnt[2] + val)] <- NA
   y
 }
 
-xxx
+print("hello word")

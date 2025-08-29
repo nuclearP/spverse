@@ -4,7 +4,7 @@
 \alias{remove_outliers}
 \title{remove_outliers}
 \usage{
-remove_outliers(x, n, na.rm = TRUE, ...)
+remove_outliers(x, n = 3, na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{numeric vector}

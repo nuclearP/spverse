@@ -2,23 +2,34 @@
 #'
 NULL
 
-
 #' the sp class
 #'
 #' class designed for one experiment
+#'
 #' @slot rawdata data.frame.
-#' @slot features data.frame.
+#' @slot sample_features data.frame.
+#' @slot protein_features data.frame.
 #' @slot scaledata data.frame.
-#' @slot dim list.
+#' @slot dims list.
+#' @slot corrective_PCA data.frame.
+#' @slot trend list.
+#' @slot group factor.
+#'
 #' @return
 #' @export
+#'
+#' @examples
 sp <- setClass(
   "sp",
   slots = c(
     rawdata = "data.frame",
-    features = "data.frame",
+    sample_features = "data.frame",
+    protein_features = "data.frame",
     scaledata = "data.frame",
-    dim = "list"
+    dims = "list",
+    corrective_PCA = "data.frame",
+    trend = "list",
+    group = "factor"
   )
 )
 
@@ -49,23 +60,35 @@ creatsp <- function(
   filetype = "xls"
 ){
   rawdata <- paste0(pathway,"/","rawdata.",filetype)
-  location <- paste0(pathway,"/","location.",filetype)
+  location_ <- paste0(pathway,"/","location.",filetype)
   if(!file.exists(rawdata)){
     stop("Original data not found")
   }
+  #rawdata
   rawdata <- fread(rawdata) %>% as.data.frame()
   rownames(rawdata) <- rawdata$p
-  rawdata <- subset(rawdata,select = -p)
-
+  rawdata <- subset(rawdata,select = -rawdata$p)
+  #sample_features
+  sample_features <- colSums(!is.na(rawdata)) %>% as.data.frame()
+  colnames(sample_features) <- "num"
+  sample_features$samples <- row.names(sample_features)
+  sample_features$means <- apply(rawdata,2,mean,na.rm = T)
+  sample_features$cvs <- apply(rawdata,2,removena_cv)
+  #protein_feature
+  protein_features <- rowSums(!is.na(rawdata)) %>% as.data.frame()
+  colnames(protein_features) <- "num"
+  protein_features$samples <- row.names(protein_features)
+  protein_features$means <- apply(rawdata,2,mean,na.rm = T)
+  protein_features$cvs <- apply(rawdata,2,removena_cv)
+  #scaledata
   int.scaledata <- data.frame()
-
+  #creat_object
   if(!file.exists(location)){
-    int.features <- data.frame(samples = colnames(rawdata))
-    object <- new(Class = "sp",rawdata = rawdata,features = int.features,sclaedata = int.scaledata,dim = list())
+    object <- new(Class = "sp",rawdata = rawdata,sample_features = sample_features,protein_features = protein_features,sclaedata = int.scaledata,dim = list())
   }else{
     location <- fread(location)
-    object <- new(Class = "sp",rawdata = rawdata,features = location,scaledata = int.scaledata,dim = list()
-                  )
+    sample_features <- merge(location,sample_features,by = "samples")
+    object <- new(Class = "sp",rawdata = rawdata,sample_features = sample_features,protein_features = protein_features,sclaedata = int.scaledata,dim = list())
   }
   return(object)
 }
@@ -122,7 +145,7 @@ setMethod("normlization","sp",function(object,meancut,cvcut){
   if(!is.numeric(cvcut)){
     stop("cvcut should be a numerical value")
   }
-  selected <- subset(object@features,means < meancut & cvs < cvcut)
+  selected <- subset(object@features,object@features$means < meancut & object@features$cvs < cvcut)
   scaledata <- subset(object@rawdata,select = selected$samples)
   if(nrow(scaledata) < 1){
     stop("All data is filtered")
@@ -163,5 +186,12 @@ setMethod(
 }
 )
 
+setMethod(
+  f = 'dim',
+  signature = 'sp',
+  definition = function(object){
+    dim(object@rawdata)
+  }
+)
 
 
