@@ -8,18 +8,27 @@ Description: an R package for data analysis of spatial proteomics derived from m
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Imports: 
     magrittr,
     limma,
     stats,
     methods,
-    data.table
-Collate: 
-    'import.R'
-    'pre_treat.R'
-    'object.R'
-    'utils-pipe.R'
+    data.table,
+    dplyr,
+    ggplot2,
+    tidyr,
+    tidyselect,
+    rrcovNA,
+    DreamAI,
+    SeqKnn,
+    ggalt,
+    umap,
+    factoextra,
+    ggrepel,
+    tidydr,
+    harmony,
+    boot
 biocViews: AlternativeSplicing, BatchEffect, Bayesian, BiomedicalInformatics, CellBiology,
            Cheminformatics, Clustering, DataImport, DifferentialExpression, DifferentialSplicing,
            Epigenetics, ExonArray, FunctionalGenomics, GeneExpression, GeneSetEnrichment, Genetics,
@@ -27,3 +36,26 @@ biocViews: AlternativeSplicing, BatchEffect, Bayesian, BiomedicalInformatics, Ce
            OneChannel, Preprocessing, ProprietaryPlatforms, Proteomics, QualityControl, RNASeq,
            Regression, Sequencing, Software, SystemsBiology, TimeCourse, Transcription, Transcriptomics,
            TwoChannel, mRNAMicroarray
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends: 
+    glmnet
+Collate: 
+    'utilities.R'
+    'bootstrap.R'
+    'density_plot.R'
+    'detection_rate.R'
+    'filter_sample.R'
+    'import.R'
+    'mvi.R'
+    'norm.R'
+    'object.R'
+    'pca_point.R'
+    'pca_var.R'
+    'pca_var_bar.R'
+    'run_harmony.R'
+    'run_pca.R'
+    'run_umap.R'
+    'umap_point.R'
+    'utils-pipe.R'

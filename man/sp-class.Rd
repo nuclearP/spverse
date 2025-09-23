@@ -6,17 +6,23 @@
 \alias{sp}
 \title{the sp class}
 \description{
-class designed for one experiment
+class designed for one experiment.
 }
 \section{Slots}{
 
 \describe{
 \item{\code{rawdata}}{data.frame.}
 
-\item{\code{features}}{data.frame.}
+\item{\code{sample_features}}{data.frame.}
 
-\item{\code{scaledata}}{data.frame.}
+\item{\code{protein_features}}{data.frame.}
 
-\item{\code{dim}}{list.}
+\item{\code{cleaned_data}}{data.frame.}
+
+\item{\code{dim_reductions}}{list.}
+
+\item{\code{corrective_PCA}}{data.frame.}
+
+\item{\code{RID_bootstrap}}{data.frame.}
 }}
 
