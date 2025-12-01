@@ -37,16 +37,15 @@ Imports:
     GSVA (>= 1.50.0),
     clusterProfiler,
     fgsea,
-    Mfuzz
-biocViews: AlternativeSplicing, BatchEffect, Bayesian, BiomedicalInformatics, CellBiology,
-           Cheminformatics, Clustering, DataImport, DifferentialExpression, DifferentialSplicing,
-           Epigenetics, ExonArray, FunctionalGenomics, GeneExpression, GeneSetEnrichment, Genetics,
-           ImmunoOncology, Metabolomics, MicroRNAArray, Microarray, MultipleComparison, Normalization,
-           OneChannel, Preprocessing, ProprietaryPlatforms, Proteomics, QualityControl, RNASeq,
-           Regression, Sequencing, Software, SystemsBiology, TimeCourse, Transcription, Transcriptomics,
-           TwoChannel, mRNAMicroarray,GO, GeneExpression, GeneSetEnrichment, GraphAndNetwork, KEGG, Software,
-           Clustering, Microarray, Preprocessing, Software, TimeCourse, Visualization,
-           Sequencing, Software, Visualization
+    Mfuzz,
+    DreamAI,
+    ggalt,
+    ConsensusClusterPlus,
+    ComplexHeatmap,
+    mixOmics,
+    preprocessCore,
+    CIBERSORT,
+    jjPlot
 Suggests: 
     testthat (>= 3.0.0),
     org.Hs.eg.db
