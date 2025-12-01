@@ -56,6 +56,7 @@ Remotes:
     ConsensusClusterPlus,
     jokergoo/ComplexHeatmap,
     mixOmicsTeam/mixOmics,
+    bmbolstad/preprocessCore,
     Moonerss/CIBERSORT,
     junjunlab/jjPlot
 Config/testthat/edition: 3
