@@ -51,10 +51,10 @@ Suggests:
     testthat (>= 3.0.0),
     org.Hs.eg.db
 Remotes:
-    WangLab-MSSM/DreamAI/Code
+    WangLab-MSSM/DreamAI/Code,
     hrbrmstr/ggalt,
     ConsensusClusterPlus,
-    jokergoo/ComplexHeatmap，
+    jokergoo/ComplexHeatmap,
     mixOmicsTeam/mixOmics,
     Moonerss/CIBERSORT,
     junjunlab/jjPlot
