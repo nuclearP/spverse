@@ -17,12 +17,26 @@ class designed for one experiment.
 
 \item{\code{protein_features}}{data.frame.}
 
-\item{\code{cleaned_data}}{data.frame.}
+\item{\code{clean_data}}{data.frame.}
 
 \item{\code{dim_reductions}}{list.}
 
 \item{\code{corrective_PCA}}{data.frame.}
 
 \item{\code{RID_bootstrap}}{data.frame.}
+
+\item{\code{cmeans_list}}{"list".}
+
+\item{\code{ssgsea_list}}{list.}
+
+\item{\code{GSEA_list}}{list.}
+
+\item{\code{adj_matrix_list}}{list.}
+
+\item{\code{list_neighbour}}{list.}
+
+\item{\code{combine_listw}}{ANY.}
+
+\item{\code{deconvolution_result}}{data.frame.}
 }}
 

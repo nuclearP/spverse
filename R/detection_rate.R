@@ -1,23 +1,10 @@
 #' @title ppd (Probability of protein detection).
 #' @description
 #' Calculate the detection rate of proteins in different groups.
-#' @param x A protein expression matrix, where the row names are protein
+#' @param x A protein expression matrix (data.frame format), where the row names are protein
 #' or gene IDs and the column names are sample names.
-#' @param ... Arguments passed to other methods.
-#' @export
+#' @param group Group information of samples, which is a character vector or factor.
 #' @return A data frame containing the detection rate of different proteins in each group.
-#' @rdname ppd
-ppd <- function(x,...) {
-  UseMethod("ppd")
-}
-
-#' @importFrom dplyr mutate
-#' @importFrom dplyr group_by
-#' @importFrom dplyr summarise
-#' @importFrom dplyr across
-#' @importFrom tidyselect everything
-#' @param group information of samples, which is a character vector or factor.
-#' @method ppd data.frame
 #' @export
 #' @rdname ppd
 #' @examples
@@ -36,13 +23,14 @@ ppd <- function(x,...) {
 #'  ppd(data,group)
 #'
 #' }
-ppd.data.frame <- function(x,group,...) {
+ppd <- function(x,group) {
 
   if(dim(x)[2] != length(group)){
     stop("The grouping information you provided is incorrect.")
   }
 
-  x <- t(x) %>% as.data.frame() %>% mutate(group = group)
+  x <- t(x) %>% as.data.frame()
+  x[["group"]] = group
 
   result <- x %>%
     group_by(group) %>%
@@ -53,24 +41,16 @@ ppd.data.frame <- function(x,group,...) {
 
 #' @title ppd_sp
 #' @description
-#' calculate the detection rate of proteins in different groups for sp object.
-#' @param object An \linkS4class{sp}.
-#' @param ... Arguments passed to other methods.
+#' Calculate the detection rate of proteins in different groups for sp object.
+#' @param object an sp object \linkS4class{sp}.
+#' @param group Group information of samples, which is a string corresponding
+#' to one element in the column name of the sp object slot "sample_features".
+#' The attribute of this column should be a character vector or a factor.
 #' @returns A data frame containing the detection rate of different proteins in each group.
 #' @export
 #' @rdname ppd_sp
-setGeneric("ppd_sp",function(object,...) standardGeneric("ppd_sp"))
-
-#' @param group Group information of samples, which is a string corresponding.
-#' to one element in the column name "sample_features" of the sp object
-#' The attribute of this column should be a character vector or a factor.
-#' @seealso \code{\link{ppd.data.frame}}
-#' @rdname ppd_sp
-#' @exportMethod ppd_sp
-setMethod(
-  f ="ppd_sp",
-  signature = signature(object= "sp"),
-  function(object,group) {
-    result <- ppd(object@rawdata,object@sample_features[[group]])
-    return(result)
-  })
+#' @seealso \code{\link{ppd}}
+ppd_sp <- function(object,group) {
+  result <- ppd(object@rawdata,object@sample_features[[group]])
+  return(result)
+}

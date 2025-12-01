@@ -2,17 +2,12 @@
 % Please edit documentation in R/pca_var.R
 \name{pca_var_sp}
 \alias{pca_var_sp}
-\alias{pca_var_sp,sp-method}
 \title{pca_var_sp}
 \usage{
-pca_var_sp(object, ...)
-
-\S4method{pca_var_sp}{sp}(object, pc = c(1, 2), n = 10, name = "RAW")
+pca_var_sp(object, pc = c(1, 2), n = 10, name = "clean")
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{pc}{A vector containing two numerical values, used to select two principal
 components for display, with the first and second dimensions as the default.}
@@ -20,16 +15,16 @@ components for display, with the first and second dimensions as the default.}
 \item{n}{The number of features to display, including n positively correlated}
 
 \item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Visualize the PCA results of the original data.
-  \item RID : Visualize the PCA results of the data with individual differences removed.}}
+\itemize{ \item clean :
+  Visualize the PCA results of the slot clean_data.
+  \item RID : Visualize the PCA results of the slot RID_bootstrap.}}
 }
 \value{
 ggplot object.
 }
 \description{
-Visualize the correlation between features and different principal components using ggplot2 for sp object.
+Visualize the correlation between features and different principal components using ggplot2 for the sp object.
 }
 \seealso{
-\code{\link{pca_var.prcomp}}
+\code{\link{pca_var}}
 }

@@ -2,17 +2,12 @@
 % Please edit documentation in R/run_harmony.R
 \name{run_harmony_sp}
 \alias{run_harmony_sp}
-\alias{run_harmony_sp,sp-method}
 \title{run_harmony_sp}
 \usage{
-run_harmony_sp(object, ...)
-
-\S4method{run_harmony_sp}{sp}(object, dimn, group, theta = 2.5, sigma = 1.2)
+run_harmony_sp(object, dimn, group, theta = 2.5, sigma = 1.2)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{dimn}{Select the expression matrix of the first n dimensions from the
 principal component analysis result for harmony.}
@@ -25,6 +20,9 @@ The attribute of this column should be a character vector or a factor.}
 
 \item{sigma}{parameters for \code{\link[harmony]{RunHarmony.default}}}
 }
+\value{
+The sp object with the slot corrective_PCA.
+}
 \description{
-Performs the Harmony algorithm directly on the given sp object.
+Performs the Harmony algorithm directly on the sp object.
 }

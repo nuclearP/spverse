@@ -18,44 +18,82 @@ Imports:
     dplyr,
     ggplot2,
     tidyr,
-    tidyselect,
     rrcovNA,
-    DreamAI,
     SeqKnn,
-    ggalt,
     umap,
     factoextra,
     ggrepel,
     tidydr,
     harmony,
-    boot
+    boot,
+    readxl,
+    spdep,
+    ape,
+    purrr,
+    utils,
+    grid,
+    tidyselect,
+    car,
+    GSVA (>= 1.50.0),
+    clusterProfiler,
+    fgsea,
+    Mfuzz
 biocViews: AlternativeSplicing, BatchEffect, Bayesian, BiomedicalInformatics, CellBiology,
            Cheminformatics, Clustering, DataImport, DifferentialExpression, DifferentialSplicing,
            Epigenetics, ExonArray, FunctionalGenomics, GeneExpression, GeneSetEnrichment, Genetics,
            ImmunoOncology, Metabolomics, MicroRNAArray, Microarray, MultipleComparison, Normalization,
            OneChannel, Preprocessing, ProprietaryPlatforms, Proteomics, QualityControl, RNASeq,
            Regression, Sequencing, Software, SystemsBiology, TimeCourse, Transcription, Transcriptomics,
-           TwoChannel, mRNAMicroarray
+           TwoChannel, mRNAMicroarray,GO, GeneExpression, GeneSetEnrichment, GraphAndNetwork, KEGG, Software,
+           Clustering, Microarray, Preprocessing, Software, TimeCourse, Visualization,
+           Sequencing, Software, Visualization
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    org.Hs.eg.db
+Remotes:
+    WangLab-MSSM/DreamAI/Code
+    hrbrmstr/ggalt,
+    ConsensusClusterPlus,
+    jokergoo/ComplexHeatmap，
+    mixOmicsTeam/mixOmics,
+    Moonerss/CIBERSORT,
+    junjunlab/jjPlot
 Config/testthat/edition: 3
 Depends: 
-    glmnet
+    glmnet,
+    Biobase,
+    e1071,
+    R (>= 3.5)
 Collate: 
+    'adj_lw.R'
+    'adj_matrix.R'
     'utilities.R'
     'bootstrap.R'
+    'cluster.R'
+    'cluster_heatmap.R'
+    'cmeans.R'
+    'deconvolution.R'
     'density_plot.R'
+    'dep.R'
     'detection_rate.R'
+    'filter_plot_sp.R'
     'filter_sample.R'
+    'gsea_sp.R'
     'import.R'
+    'jca.R'
+    'moran.R'
     'mvi.R'
     'norm.R'
     'object.R'
     'pca_point.R'
     'pca_var.R'
     'pca_var_bar.R'
+    'plsda.R'
     'run_harmony.R'
     'run_pca.R'
     'run_umap.R'
+    'sp_jaccard_correlation.R'
+    'sp_jca_visualization.R'
+    'ssgsea_sp.R'
     'umap_point.R'
     'utils-pipe.R'

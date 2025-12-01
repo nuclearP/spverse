@@ -2,27 +2,14 @@
 % Please edit documentation in R/pca_point.R
 \name{pca_point}
 \alias{pca_point}
-\alias{pca_point.prcomp}
 \title{pca_point}
 \usage{
-pca_point(x, ...)
-
-\method{pca_point}{prcomp}(
-  x,
-  group,
-  pc = c(1, 2),
-  pal = NULL,
-  shape = "chull",
-  legend_row = 1,
-  ...
-)
+pca_point(x, group, pc = c(1, 2), pal = NULL, shape = "chull", legend_row = 1)
 }
 \arguments{
 \item{x}{an prcomp object of class PCA.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{Group information of samples, which is a character vector or factor.}
+\item{group}{Group information of samples, which is a character vector or a factor.}
 
 \item{pc}{A vector containing two numerical values, used to select two principal
 components for display, with the first and second dimensions as the default.}

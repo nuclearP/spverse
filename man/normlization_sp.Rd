@@ -2,19 +2,13 @@
 % Please edit documentation in R/norm.R
 \name{normlization_sp}
 \alias{normlization_sp}
-\alias{normlization_sp,sp-method}
 \title{normlization_sp}
 \usage{
 normlization_sp(object)
-
-\S4method{normlization_sp}{sp}(object)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-}
-\value{
-A dataframe contains data that has been quality controlled and normalized.
+\item{object}{an sp object \linkS4class{sp}.}
 }
 \description{
-normlize the cleaned_data slot of the sp object by Quantiles.
+Normlize the slot clean_data of the sp object by Quantiles method.
 }

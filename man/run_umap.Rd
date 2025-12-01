@@ -2,24 +2,19 @@
 % Please edit documentation in R/run_umap.R
 \name{run_umap}
 \alias{run_umap}
-\alias{run_umap.prcomp}
 \title{run_umap}
 \usage{
-run_umap(x, ...)
-
-\method{run_umap}{prcomp}(x, dimn, ...)
+run_umap(x, dimn)
 }
 \arguments{
 \item{x}{an prcomp object of class PCA.}
 
-\item{...}{Arguments passed to other methods.}
-
 \item{dimn}{Select the expression matrix of the first n dimensions from the
-principal component analysis for UMAP dimensional reduction.}
+pca result for UMAP dimensional reduction.}
 }
 \value{
 return object of class umap.
 }
 \description{
-Perform the Uniform Manifold Approximation and Projection (UMAP) dimensional reduction technique
+Perform the Uniform Manifold Approximation and Projection (UMAP) dimensional reduction technique.
 }

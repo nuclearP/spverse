@@ -2,17 +2,12 @@
 % Please edit documentation in R/mvi.R
 \name{mvi_sp}
 \alias{mvi_sp}
-\alias{mvi_sp,sp-method}
 \title{mvi_sp}
 \usage{
-mvi_sp(object, ...)
-
-\S4method{mvi_sp}{sp}(object, method = "impseqrob", nmr = 0)
+mvi_sp(object, method = "impseqrob", nmr = 0)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{method}{Methods for missing value imputation: There are four methods in total,
 namely impseqrob (Robust sequential imputation), impseq (Sequential imputation),
@@ -23,11 +18,11 @@ where the row names are protein or gene IDs and the column names are sample name
 filter out proteins below this value before performing missing value imputation.}
 }
 \value{
-The sp object obtained after performing missing value imputation on cleaned_data.
+The sp object obtained after performing missing value imputation on clean_data.
 }
 \description{
-Impute missing values of sp object.
+Impute missing values for sp object slot clean_data.
 }
 \seealso{
-\code{\link{mvi.data.frame}}
+\code{\link{mvi}}
 }

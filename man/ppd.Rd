@@ -2,20 +2,15 @@
 % Please edit documentation in R/detection_rate.R
 \name{ppd}
 \alias{ppd}
-\alias{ppd.data.frame}
 \title{ppd (Probability of protein detection).}
 \usage{
-ppd(x, ...)
-
-\method{ppd}{data.frame}(x, group, ...)
+ppd(x, group)
 }
 \arguments{
-\item{x}{A protein expression matrix, where the row names are protein
+\item{x}{A protein expression matrix (data.frame format), where the row names are protein
 or gene IDs and the column names are sample names.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{information of samples, which is a character vector or factor.}
+\item{group}{Group information of samples, which is a character vector or factor.}
 }
 \value{
 A data frame containing the detection rate of different proteins in each group.

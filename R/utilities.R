@@ -1,7 +1,5 @@
-#' removeRowsAllNa
-#'
-#' Delete rows that are all NA.
-#'
+#' @title removeRowsAllNa
+#' @description Delete rows that are all NA.
 #' @param object a data.frame or matrix.
 #' @export
 #' @examples

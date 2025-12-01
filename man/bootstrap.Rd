@@ -2,18 +2,13 @@
 % Please edit documentation in R/bootstrap.R
 \name{bootstrap}
 \alias{bootstrap}
-\alias{bootstrap.data.frame}
 \title{bootstrap}
 \usage{
-bootstrap(x, ...)
-
-\method{bootstrap}{data.frame}(x, group, dif = 1.5, R = 500, ...)
+bootstrap(x, group, dif = 1.5, R = 500)
 }
 \arguments{
 \item{x}{A protein expression matrix, where the row names are protein
 or gene IDs and the column names are sample names.}
-
-\item{...}{Arguments passed to other methods.}
 
 \item{group}{The grouping information of samples, where each group contains samples from different individuals.}
 
@@ -22,7 +17,7 @@ or gene IDs and the column names are sample names.}
 \item{R}{The number of bootstrap replicates.}
 }
 \value{
-A protein expression matrix after removing some proteins with large fluctuations..
+A protein expression matrix after removing some proteins with large fluctuations.
 }
 \description{
 Use the bootstrap method to calculate the confidence intervals of each protein

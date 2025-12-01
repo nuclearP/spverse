@@ -8,19 +8,6 @@ NULL
 #' the impact of individual differences on data analysis.
 #' @param x A protein expression matrix, where the row names are protein
 #' or gene IDs and the column names are sample names.
-#' @param ... Arguments passed to other methods.
-#' @return A protein expression matrix after removing some proteins with large fluctuations..
-#' @export
-#' @rdname bootstrap
-bootstrap <- function(x,...) {
-  UseMethod("bootstrap")
-}
-
-#' @importFrom dplyr filter
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom boot boot
-#' @importFrom boot boot.ci
 #' @param group The grouping information of samples, where each group contains samples from different individuals.
 #' @param dif The range of the confidence interval.
 #' @param R The number of bootstrap replicates.
@@ -28,10 +15,10 @@ bootstrap <- function(x,...) {
 #' Since proteomics data is generally log-transformed, the range of the confidence interval—i.e.,
 #' the difference between the two ends of the confidence interval—can be interpreted as the fold
 #' change between these two ends.
-#' @method bootstrap data.frame
+#' @return A protein expression matrix after removing some proteins with large fluctuations.
 #' @export
 #' @rdname bootstrap
-bootstrap.data.frame <- function(x,group,dif = 1.5,R=500,...){
+bootstrap <- function(x,group,dif = 1.5,R=500){
 
   fis <- list()
 
@@ -66,40 +53,28 @@ bootstrap.data.frame <- function(x,group,dif = 1.5,R=500,...){
 #' Use the bootstrap method to calculate the confidence intervals of each protein
 #' in different groups, and filter out proteins with larger thresholds of sp object to control
 #' the impact of individual differences on data analysis.
-#' @param object An \linkS4class{sp}.
-#' @param ... Arguments passed to other methods.
-#' @return ggplot object.
-#' @export
-#' @rdname bootstrap_sp
-setGeneric("bootstrap_sp",function(object,...) standardGeneric("bootstrap_sp") )
-
-#' @param group Group information of samples, which is a string corresponding.
-#' to one element in the column name "sample_features" of the sp object
+#' @param object an sp object \linkS4class{sp}.
+#' @param group Group information of samples, which is a string corresponding
+#' to one element in the column name of the sp object slot "sample_features".
 #' The attribute of this column should be a character vector or a factor.
 #' @param dif The range of the confidence interval.
 #' @param R The number of bootstrap replicates.
-#' @seealso \code{\link{bootstrap.data.frame}}
+#' @return The sp object with the slot RID_bootstrap.
+#' @seealso \code{\link{bootstrap}}
+#' @export
 #' @rdname bootstrap_sp
-#' @exportMethod bootstrap_sp
-setMethod(
-  f ="bootstrap_sp",
-  signature = signature(object= "sp"),
-  function(object,group,dif = 1.5,R=500) {
+bootstrap_sp <- function(object,group,dif = 1.5,R=500) {
 
-    if(nrow(object@cleaned_data) < 1){
-      stop("The cleaned_data slot is missing in the sp object.")
-    }
-
-    sam = object@sample_features[c("samples",group)]
-
-    sam <- dplyr::filter(sam,sam[["samples"]] %in% colnames(object@cleaned_data))
-
-    object@RID_bootstrap <- bootstrap(object@cleaned_data,group = sam[[group]],dif = dif,R=R)
-
-    return(object)
-
+  if(nrow(object@clean_data) < 1){
+    stop("The clean_data slot is missing in the sp object.")
   }
-)
+
+  sam = object@sample_features[c("samples",group)]
+  sam <- dplyr::filter(sam,sam[["samples"]] %in% colnames(object@clean_data))
+  object@RID_bootstrap <- bootstrap(object@clean_data,group = sam[[group]],dif = dif,R=R)
+
+  return(object)
+}
 
 
 mean_func <- function(data, indices) {

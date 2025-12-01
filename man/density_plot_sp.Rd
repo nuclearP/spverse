@@ -2,15 +2,12 @@
 % Please edit documentation in R/density_plot.R
 \name{density_plot_sp}
 \alias{density_plot_sp}
-\alias{density_plot_sp,sp-method}
 \title{density_plot_sp}
 \usage{
 density_plot_sp(object)
-
-\S4method{density_plot_sp}{sp}(object)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
+\item{object}{an sp object \linkS4class{sp}.}
 }
 \value{
 ggplot object.

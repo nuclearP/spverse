@@ -2,29 +2,28 @@
 % Please edit documentation in R/run_umap.R
 \name{run_umap_sp}
 \alias{run_umap_sp}
-\alias{run_umap_sp,sp-method}
 \title{run_umap_sp}
 \usage{
-run_umap_sp(object, ...)
-
-\S4method{run_umap_sp}{sp}(object, dimn, name = "RAW")
+run_umap_sp(object, dimn, name = "clean")
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{dimn}{Select the expression matrix of the first n dimensions from the
-principal component analysis for UMAP dimensional reduction.}
+pca result for UMAP dimensional reduction.}
 
-\item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Visualize the PCA results of the original data.
-  \item RID : Visualize the PCA results of the data with individual differences removed.}}
+\item{name}{There are three options in total:
+\itemize{ \item clean :
+  The PCA results of the original data (the slot clean_data).
+  \item RID : The PCA results of the data with individual differences removed through the bootstrap method.
+   \item harmony : The PCA results of the data with individual differences removed through the harmony method.}}
 }
 \description{
-Performs Uniform Manifold Approximation and Projection (UMAP) dimensional reduction on the given sp object.
+Performs Uniform Manifold Approximation and Projection (UMAP) dimensional reduction on the sp object.
+}
+\details{
+UMAP dimensionality reduction is based on PCA results.
 }
 \seealso{
-\code{\link{run_umap.prcomp}}
+\code{\link{run_umap}}
 }

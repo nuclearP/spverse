@@ -2,31 +2,26 @@
 % Please edit documentation in R/filter_sample.R
 \name{filter_sample_sp}
 \alias{filter_sample_sp}
-\alias{filter_sample_sp,sp-method}
 \title{filter_sample_sp}
 \usage{
-filter_sample_sp(object, ...)
-
-\S4method{filter_sample_sp}{sp}(object, times = 1, groups = NULL)
+filter_sample_sp(object, times = 1, group = NULL)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{times}{The coefficient of the IQR value, with a default value of 1.}
 
-\item{groups}{Group information of samples, which is a string corresponding.
-to one element in the column name "sample_features" of the sp object
+\item{group}{Group information of samples, which is a string corresponding
+to one element in the column name of the sp object slot "sample_features".
 The attribute of this column should be a character vector or a factor.}
 }
 \value{
-Assign a value to the cleaned_data of the sp object.
+Assign a value to the slot clean_data of the sp object.
 }
 \description{
 Filter out samples of sp object where the number of identified proteins
 is less than (25th percentile minus n times IQR).
 }
 \seealso{
-\code{\link{filter_sample.data.frame}}
+\code{\link{filter_sample}}
 }

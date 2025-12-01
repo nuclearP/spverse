@@ -2,28 +2,23 @@
 % Please edit documentation in R/pca_point.R
 \name{pca_point_sp}
 \alias{pca_point_sp}
-\alias{pca_point_sp,sp-method}
 \title{pca_point_sp}
 \usage{
-pca_point_sp(object, ...)
-
-\S4method{pca_point_sp}{sp}(
+pca_point_sp(
   object,
   group,
   pc = c(1, 2),
   pal = NULL,
   shape = "chull",
   legend_row = 1,
-  name = "RAW"
+  name = "clean"
 )
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
+\item{object}{an sp object \linkS4class{sp}.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{Group information of samples, which is a string corresponding.
-to one element in the column name "sample_features" of the sp object
+\item{group}{Group information of samples, which is a string corresponding
+to one element in the column name of the sp object slot "sample_features".
 The attribute of this column should be a character vector or a factor.}
 
 \item{pc}{A vector containing two numerical values, used to select two principal
@@ -37,9 +32,9 @@ components for display, with the first and second dimensions as the default.}
 you can appropriately increase the number of rows to improve the aesthetics of the plot.}
 
 \item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Visualize the PCA results of the original data.
-  \item RID : Visualize the PCA results of the data with individual differences removed.}}
+\itemize{ \item clean :
+  Visualize the PCA results of the slot clean_data.
+  \item RID : Visualize the PCA results of the slot RID_bootstrap.}}
 }
 \value{
 ggplot object.
@@ -48,5 +43,5 @@ ggplot object.
 Create a ggplot2-based scatter plot of PCA for sp object.
 }
 \seealso{
-\code{\link{pca_point.prcomp}}
+\code{\link{pca_point}}
 }

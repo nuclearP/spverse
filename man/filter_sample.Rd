@@ -2,22 +2,17 @@
 % Please edit documentation in R/filter_sample.R
 \name{filter_sample}
 \alias{filter_sample}
-\alias{filter_sample.data.frame}
 \title{filter_sample}
 \usage{
-filter_sample(x, ...)
-
-\method{filter_sample}{data.frame}(x, times = 1, groups = NULL, ...)
+filter_sample(x, times = 1, group = NULL)
 }
 \arguments{
-\item{x}{A protein expression matrix, where the row names are protein
+\item{x}{A protein expression matrix (data.frame format), where the row names are protein
 or gene IDs and the column names are sample names.}
-
-\item{...}{Arguments passed to other methods.}
 
 \item{times}{The coefficient of the IQR value, with a default value of 1.}
 
-\item{groups}{Group information of samples, which is a character vector or factor.}
+\item{group}{Group information of samples, which is a character vector or factor.}
 }
 \value{
 A data.frame with Some Columns (Samples) Filtered Out.

@@ -2,27 +2,22 @@
 % Please edit documentation in R/umap_point.R
 \name{umap_point_sp}
 \alias{umap_point_sp}
-\alias{umap_point_sp,sp-method}
 \title{umap_point_sp}
 \usage{
-umap_point_sp(object, ...)
-
-\S4method{umap_point_sp}{sp}(
+umap_point_sp(
   object,
   group,
   pal = NULL,
-  shape = "chull",
+  shape = NULL,
   legend_row = 1,
-  name = "RAW"
+  name = "clean"
 )
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
+\item{object}{an sp object \linkS4class{sp}.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{Group information of samples, which is a string corresponding.
-to one element in the column name "sample_features" of the sp object
+\item{group}{Group information of samples, which is a string corresponding
+to one element in the column name of the sp object slot "sample_features".
 The attribute of this column should be a character vector or a factor.}
 
 \item{pal}{The color palette to be used for coloring and filling by groups.}
@@ -32,10 +27,11 @@ The attribute of this column should be a character vector or a factor.}
 \item{legend_row}{The number of rows in the legend. If there are too many types of groups,
 you can appropriately increase the number of rows to improve the aesthetics of the plot.}
 
-\item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Visualize the umap results of the original data.
-  \item RID : Visualize the umap results of the data with individual differences removed.}}
+\item{name}{There are three options in total:
+\itemize{ \item clean :
+  TVisualize the umap results of the original data. (the umap_clean).
+  \item RID : Visualize the umap results of the data with individual differences removed through the bootstrap method. (umap_RID)
+   \item harmony : Visualize the umap results of the data with individual differences removed through the harmony method. (umap_harmony)}}
 }
 \value{
 ggplot object.
@@ -44,5 +40,5 @@ ggplot object.
 Create a ggplot2-based scatter plot of umap for sp object.
 }
 \seealso{
-\code{\link{umap_point.umap}}
+\code{\link{umap_point}}
 }

@@ -2,32 +2,27 @@
 % Please edit documentation in R/run_pca.R
 \name{run_pca_sp}
 \alias{run_pca_sp}
-\alias{run_pca_sp,sp-method}
 \title{run_pca_sp}
 \usage{
-run_pca_sp(object, ...)
-
-\S4method{run_pca_sp}{sp}(object, filter_by = "sd", rank = 0.5, name = "RAW")
+run_pca_sp(object, filter_by = "sd", rank = 0.5, name = "clean")
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{filter_by}{Select features with large fluctuations for principal components analysis,
 The standard deviation (sd) or coefficient of variation (cv) can be used for feature selection.}
 
-\item{rank}{Select features with the largest fluctuations based on percentage.
+\item{rank}{A numeric value between 0 and 1. Select features with the largest fluctuations based on percentage.
 By default, select the top 50\% of features for principal components analysis.}
 
 \item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Perform PCA dimensionality reduction using cleaned_data lot, and store the returned result in "dim_reductions[["pca_RAW"]]".
-  \item RID : Perform PCA dimensionality reduction using RID_bootstrap lot, and store the returned result in "dim_reductions[["pca_RID"]]".}}
+\itemize{ \item clean :
+  Perform PCA dimensionality reduction using the slot clean_data, and store the returned result in "dim_reductions[["pca_clean"]]".
+  \item RID : Perform PCA dimensionality reduction using the slot RID_bootstrap, and store the returned result in "dim_reductions[["pca_RID"]]".}}
 }
 \description{
-Performs a principal components analysis on the given sp object.
+Performs a principal components analysis on the sp object.
 }
 \seealso{
-\code{\link{run_pca.data.frame}}
+\code{\link{run_pca}}
 }

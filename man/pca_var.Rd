@@ -2,17 +2,12 @@
 % Please edit documentation in R/pca_var.R
 \name{pca_var}
 \alias{pca_var}
-\alias{pca_var.prcomp}
 \title{pca_var}
 \usage{
-pca_var(x, ...)
-
-\method{pca_var}{prcomp}(x, pc = c(1, 2), n = 10, ...)
+pca_var(x, pc = c(1, 2), n = 10)
 }
 \arguments{
-\item{x}{an prcomp object of class PCA.}
-
-\item{...}{Arguments passed to other methods.}
+\item{x}{An prcomp object of class PCA.}
 
 \item{pc}{A vector containing two numerical values, used to select two principal
 components for display, with the first and second dimensions as the default.}

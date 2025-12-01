@@ -1,57 +1,27 @@
 #' @title pca_var
 #' @description
 #' Visualize the correlation between features and different principal components using ggplot2.
-#' @param x an prcomp object of class PCA.
-#' @param ... Arguments passed to other methods.
-#' @return ggplot object.
-#' @export
-#' @rdname pca_var
-pca_var <- function(x,...){
-  UseMethod("pca_var")
-}
-
-#' @importFrom factoextra get_pca_var
-#' @importFrom utils head
-#' @importFrom utils tail
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_segment
-#' @importFrom grid arrow
-#' @importFrom grid unit
-#' @importFrom ggrepel geom_text_repel
-#' @importFrom ggplot2 geom_vline
-#' @importFrom ggplot2 geom_hline
-#' @importFrom ggplot2 xlim
-#' @importFrom ggplot2 ylim
-#' @importFrom ggplot2 labs
-#' @importFrom ggplot2 theme_classic
+#' @param x An prcomp object of class PCA.
 #' @param pc A vector containing two numerical values, used to select two principal
 #' components for display, with the first and second dimensions as the default.
 #' @param n The number of features to display, including n positively correlated
 #' features and n negatively correlated features.
-#' @method pca_var prcomp
+#' @return ggplot object.
 #' @export
 #' @rdname pca_var
-pca_var.prcomp <- function(x,pc = c(1,2),n=10,...){
+pca_var <- function(x,pc = c(1,2),n=10){
 
   pca_var <- get_pca_var(x)
-
   correlation <- pca_var[["cor"]]
-
   correlation <- as.data.frame(correlation)
-
   any_false <- pc %in% c(1:ncol(correlation))
-
   any_false <- any(any_false == F)
-
   if(any_false){
     stop("The dimension you entered does not exist.")
   }
 
   df <- correlation[,pc]
-
   df["name"] <- row.names(df)
-
   if(nrow(df) < (n*2) ){
     message("The number of features is insufficient, so all features will be displayed.")
   }else{
@@ -94,49 +64,38 @@ pca_var.prcomp <- function(x,pc = c(1,2),n=10,...){
 
 #' @title pca_var_sp
 #' @description
-#' Visualize the correlation between features and different principal components using ggplot2 for sp object.
-#' @param object An \linkS4class{sp}.
-#' @param ... Arguments passed to other methods.
-#' @return ggplot object.
-#' @export
-#' @rdname pca_var_sp
-setGeneric("pca_var_sp",function(object,...) standardGeneric("pca_var_sp") )
-
+#' Visualize the correlation between features and different principal components using ggplot2 for the sp object.
+#' @param object an sp object \linkS4class{sp}.
 #' @param pc A vector containing two numerical values, used to select two principal
 #' components for display, with the first and second dimensions as the default.
 #' @param n The number of features to display, including n positively correlated
 #' @param name There are two options in total:
-#' \itemize{ \item RAW :
-#'   Visualize the PCA results of the original data.
-#'   \item RID : Visualize the PCA results of the data with individual differences removed.}
-#' @seealso \code{\link{pca_var.prcomp}}
+#' \itemize{ \item clean :
+#'   Visualize the PCA results of the slot clean_data.
+#'   \item RID : Visualize the PCA results of the slot RID_bootstrap.}
+#' @return ggplot object.
+#' @export
+#' @seealso \code{\link{pca_var}}
 #' @rdname pca_var_sp
-#' @exportMethod pca_var_sp
-setMethod(
-  f ="pca_var_sp",
-  signature = signature(object= "sp"),
-  function(object,pc=c(1,2),n=10,name="RAW"){
+pca_var_sp <- function(object,pc=c(1,2),n=10,name="clean"){
 
-    name <- match.arg(name, c("RAW","RID"))
+  name <- match.arg(name, c("clean","RID"))
 
-    if(name == "RAW"){
-      if(is.null(object@dim_reductions[["pca_RAW"]])){
-        stop("The pca_RAW is missing in the sp object.")
-      }
+  if(name == "clean"){
 
-      p <- pca_var(object@dim_reductions[["pca_RAW"]],pc=pc,n=n,name=name)
-
-    }else{
-
-      if(is.null(object@dim_reductions[["pca_RID"]])){
-        stop("The pca_RID slot is missing in the sp object.")
-      }
-
-      p <- pca_var(object@dim_reductions[["pca_RID"]],pc=pc,n=n,name=name)
-
+    if(is.null(object@dim_reductions[["pca_clean"]])){
+      stop("The slot pca_clean is missing in the sp object.")
     }
-    return(p)
-  }
+    p <- pca_var(object@dim_reductions[["pca_clean"]],pc=pc,n=n)
 
-)
+  }else{
+
+    if(is.null(object@dim_reductions[["pca_RID"]])){
+      stop("The slot pca_RID is missing in the sp object.")
+    }
+    p <- pca_var(object@dim_reductions[["pca_RID"]],pc=pc,n=n)
+
+  }
+  return(p)
+}
 

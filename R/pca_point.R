@@ -2,39 +2,17 @@
 #' @description
 #' Create a ggplot2-based scatter plot of PCA outputs prcomp.
 #' @param x an prcomp object of class PCA.
-#' @param ... Arguments passed to other methods.
-#' @return ggplot object.
-#' @export
-#' @rdname pca_point
-pca_point <- function(x,...){
-  UseMethod("pca_point")
-}
-
-#' @importFrom dplyr select
-#' @importFrom dplyr mutate
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggalt geom_encircle
-#' @importFrom ggplot2 stat_ellipse
-#' @importFrom ggplot2 labs
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 theme_classic
-#' @importFrom ggplot2 scale_color_manual
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 scale_color_discrete
-#' @importFrom ggplot2 guide_legend
-#' @param group Group information of samples, which is a character vector or factor.
+#' @param group Group information of samples, which is a character vector or a factor.
 #' @param pc A vector containing two numerical values, used to select two principal
 #' components for display, with the first and second dimensions as the default.
 #' @param pal The color palette to be used for coloring and filling by groups.
 #' @param shape There are two options available: chull (convex hull) and ellipse.
 #' @param legend_row The number of rows in the legend. If there are too many types of groups,
 #' you can appropriately increase the number of rows to improve the aesthetics of the plot.
-#' @method pca_point prcomp
+#' @return ggplot object.
 #' @export
 #' @rdname pca_point
-pca_point.prcomp <- function(x,group,pc=c(1,2),pal=NULL,shape="chull",legend_row=1,...){
+pca_point <- function(x,group,pc=c(1,2),pal=NULL,shape="chull",legend_row=1){
 
   if(is.null(group)){
     stop("Data grouping information is missing.")
@@ -68,10 +46,19 @@ pca_point.prcomp <- function(x,group,pc=c(1,2),pal=NULL,shape="chull",legend_row
       labs(x = xlab1,y = ylab1,color = "Group")+
       theme_classic()+
       theme(legend.position = "bottom")
+  }else if(shape == "ellipse"){
+    p.pca1 <- ggplot(data = df1,aes(x = df1[,1],y = df1[,2],color=group))+
+      stat_ellipse(geom = "polygon",level = 0.95,
+                   linetype = 2,size=0.5,
+                   aes(fill=group),
+                   alpha=0.2,
+                   show.legend = F)+
+      geom_point(size = 1.5)+
+      labs(x = xlab1,y = ylab1,color = "Group",fill="Group")+
+      theme_classic()+
+      theme(legend.position = "bottom")
   }else{
     p.pca1 <- ggplot(data = df1,aes(x = df1[,1],y = df1[,2],color=group))+
-      stat_ellipse(aes(fill = group),
-                   type = "norm",geom = "polygon",alpha = 0.25,level= 0.1,show.legend = F)+ # 添加置信椭圆
       geom_point(size = 1.5)+
       labs(x = xlab1,y = ylab1,color = "Group",fill="Group")+
       theme_classic()+
@@ -93,15 +80,9 @@ pca_point.prcomp <- function(x,group,pc=c(1,2),pal=NULL,shape="chull",legend_row
 #' @title pca_point_sp
 #' @description
 #' Create a ggplot2-based scatter plot of PCA for sp object.
-#' @param object An \linkS4class{sp}.
-#' @param ... Arguments passed to other methods.
-#' @return ggplot object.
-#' @export
-#' @rdname pca_point_sp
-setGeneric("pca_point_sp",function(object,...) standardGeneric("pca_point_sp") )
-
-#' @param group Group information of samples, which is a string corresponding.
-#' to one element in the column name "sample_features" of the sp object
+#' @param object an sp object \linkS4class{sp}.
+#' @param group Group information of samples, which is a string corresponding
+#' to one element in the column name of the sp object slot "sample_features".
 #' The attribute of this column should be a character vector or a factor.
 #' @param pc A vector containing two numerical values, used to select two principal
 #' components for display, with the first and second dimensions as the default.
@@ -110,43 +91,32 @@ setGeneric("pca_point_sp",function(object,...) standardGeneric("pca_point_sp") )
 #' @param legend_row The number of rows in the legend. If there are too many types of groups,
 #' you can appropriately increase the number of rows to improve the aesthetics of the plot.
 #' @param name There are two options in total:
-#' \itemize{ \item RAW :
-#'   Visualize the PCA results of the original data.
-#'   \item RID : Visualize the PCA results of the data with individual differences removed.}
-#' @seealso \code{\link{pca_point.prcomp}}
+#' \itemize{ \item clean :
+#'   Visualize the PCA results of the slot clean_data.
+#'   \item RID : Visualize the PCA results of the slot RID_bootstrap.}
+#' @return ggplot object.
+#' @export
+#' @seealso \code{\link{pca_point}}
 #' @rdname pca_point_sp
-#' @exportMethod pca_point_sp
-setMethod(
-  f ="pca_point_sp",
-  signature = signature(object= "sp"),
-  function(object,group,pc=c(1,2),pal=NULL,shape="chull",legend_row=1,name="RAW") {
+pca_point_sp <- function(object,group,pc=c(1,2),pal=NULL,shape="chull",legend_row=1,name="clean") {
 
-    name <- match.arg(name, c("RAW","RID"))
+  name <- match.arg(name, c("clean","RID"))
 
-    if(name == "RAW"){
-
-      if(is.null(object@dim_reductions[["pca_RAW"]])){
-        stop("The pca_RAW is missing in the sp object.")
-      }
-
-      sam = object@sample_features[c("samples",group)]
-
-      sam <- dplyr::filter(sam,sam[["samples"]] %in% row.names(object@dim_reductions[["pca_RAW"]][["x"]]))
-
-      p <- pca_point(object@dim_reductions[["pca_RAW"]],group = sam[[group]],pc=pc,pal=pal,shape=shape,legend_row=legend_row)
-    }else{
-
-      if(is.null(object@dim_reductions[["pca_RID"]])){
-        stop("The pca_RID slot is missing in the sp object.")
-      }
-
-      sam = object@sample_features[c("samples",group)]
-
-      sam <- dplyr::filter(sam,sam[["samples"]] %in% row.names(object@dim_reductions[["pca_RID"]][["x"]]))
-
-      p <- pca_point(object@dim_reductions[["pca_RID"]],group = sam[[group]],pc=pc,pal=pal,shape=shape,legend_row=legend_row)
+  if(name == "clean"){
+    if(is.null(object@dim_reductions[["pca_clean"]])){
+      stop("The pca_clean is missing in the sp object.")
     }
-    return(p)
+    sam = object@sample_features[c("samples",group)]
+    sam <- dplyr::filter(sam,sam[["samples"]] %in% row.names(object@dim_reductions[["pca_clean"]][["x"]]))
+    p <- pca_point(object@dim_reductions[["pca_clean"]],group = sam[[group]],pc=pc,pal=pal,shape=shape,legend_row=legend_row)
+  }else{
+    if(is.null(object@dim_reductions[["pca_RID"]])){
+      stop("The pca_RID slot is missing in the sp object.")
+    }
+    sam = object@sample_features[c("samples",group)]
+    sam <- dplyr::filter(sam,sam[["samples"]] %in% row.names(object@dim_reductions[["pca_RID"]][["x"]]))
+    p <- pca_point(object@dim_reductions[["pca_RID"]],group = sam[[group]],pc=pc,pal=pal,shape=shape,legend_row=legend_row)
   }
-)
+  return(p)
+}
 

@@ -2,17 +2,12 @@
 % Please edit documentation in R/umap_point.R
 \name{umap_point}
 \alias{umap_point}
-\alias{umap_point.umap}
 \title{umap_point}
 \usage{
-umap_point(x, ...)
-
-\method{umap_point}{umap}(x, group, pal = NULL, shape = "chull", legend_row = 1, ...)
+umap_point(x, group, pal = NULL, shape = NULL, legend_row = 1)
 }
 \arguments{
 \item{x}{object of class umap.}
-
-\item{...}{Arguments passed to other methods.}
 
 \item{group}{Group information of samples, which is a character vector or factor.}
 

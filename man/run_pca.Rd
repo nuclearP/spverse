@@ -2,23 +2,18 @@
 % Please edit documentation in R/run_pca.R
 \name{run_pca}
 \alias{run_pca}
-\alias{run_pca.data.frame}
 \title{run_pca}
 \usage{
-run_pca(x, ...)
-
-\method{run_pca}{data.frame}(x, filter_by = "sd", rank = 0.5, ...)
+run_pca(x, filter_by = "sd", rank = 0.5)
 }
 \arguments{
-\item{x}{A protein expression matrix, where the row names are protein
+\item{x}{A protein expression matrix (data.frame format), where the row names are protein
 or gene IDs and the column names are sample names.}
-
-\item{...}{Arguments passed to other methods.}
 
 \item{filter_by}{Select features with large fluctuations for principal components analysis,
 The standard deviation (sd) or coefficient of variation (cv) can be used for feature selection.}
 
-\item{rank}{Select features with the largest fluctuations based on percentage.
+\item{rank}{A numeric value between 0 and 1. Select features with the largest fluctuations based on percentage.
 By default, select the top 50\% of features for principal components analysis.}
 }
 \value{

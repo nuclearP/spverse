@@ -2,18 +2,13 @@
 % Please edit documentation in R/density_plot.R
 \name{density_plot}
 \alias{density_plot}
-\alias{density_plot.data.frame}
 \title{density_plot}
 \usage{
-density_plot(x, ...)
-
-\method{density_plot}{data.frame}(x, ...)
+density_plot(x)
 }
 \arguments{
-\item{x}{A protein expression matrix, where the row names are protein
+\item{x}{A protein expression matrix (data.frame format), where the row names are protein
 or gene IDs and the column names are sample names.}
-
-\item{...}{Arguments passed to other methods.}
 }
 \value{
 ggplot object.

@@ -2,20 +2,15 @@
 % Please edit documentation in R/bootstrap.R
 \name{bootstrap_sp}
 \alias{bootstrap_sp}
-\alias{bootstrap_sp,sp-method}
 \title{bootstrap_sp}
 \usage{
-bootstrap_sp(object, ...)
-
-\S4method{bootstrap_sp}{sp}(object, group, dif = 1.5, R = 500)
+bootstrap_sp(object, group, dif = 1.5, R = 500)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
+\item{object}{an sp object \linkS4class{sp}.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{Group information of samples, which is a string corresponding.
-to one element in the column name "sample_features" of the sp object
+\item{group}{Group information of samples, which is a string corresponding
+to one element in the column name of the sp object slot "sample_features".
 The attribute of this column should be a character vector or a factor.}
 
 \item{dif}{The range of the confidence interval.}
@@ -23,7 +18,7 @@ The attribute of this column should be a character vector or a factor.}
 \item{R}{The number of bootstrap replicates.}
 }
 \value{
-ggplot object.
+The sp object with the slot RID_bootstrap.
 }
 \description{
 Use the bootstrap method to calculate the confidence intervals of each protein
@@ -31,5 +26,5 @@ in different groups, and filter out proteins with larger thresholds of sp object
 the impact of individual differences on data analysis.
 }
 \seealso{
-\code{\link{bootstrap.data.frame}}
+\code{\link{bootstrap}}
 }

@@ -2,28 +2,23 @@
 % Please edit documentation in R/detection_rate.R
 \name{ppd_sp}
 \alias{ppd_sp}
-\alias{ppd_sp,sp-method}
 \title{ppd_sp}
 \usage{
-ppd_sp(object, ...)
-
-\S4method{ppd_sp}{sp}(object, group)
+ppd_sp(object, group)
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
+\item{object}{an sp object \linkS4class{sp}.}
 
-\item{...}{Arguments passed to other methods.}
-
-\item{group}{Group information of samples, which is a string corresponding.
-to one element in the column name "sample_features" of the sp object
+\item{group}{Group information of samples, which is a string corresponding
+to one element in the column name of the sp object slot "sample_features".
 The attribute of this column should be a character vector or a factor.}
 }
 \value{
 A data frame containing the detection rate of different proteins in each group.
 }
 \description{
-calculate the detection rate of proteins in different groups for sp object.
+Calculate the detection rate of proteins in different groups for sp object.
 }
 \seealso{
-\code{\link{ppd.data.frame}}
+\code{\link{ppd}}
 }

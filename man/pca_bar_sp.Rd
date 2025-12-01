@@ -2,23 +2,18 @@
 % Please edit documentation in R/pca_var_bar.R
 \name{pca_bar_sp}
 \alias{pca_bar_sp}
-\alias{pca_bar_sp,sp-method}
 \title{pca_bar_sp}
 \usage{
-pca_bar_sp(object, ...)
-
-\S4method{pca_bar_sp}{sp}(
+pca_bar_sp(
   object,
   addlabels = TRUE,
   ncp = 15,
   ggtheme = theme_classic(),
-  name = "RAW"
+  name = "clean"
 )
 }
 \arguments{
-\item{object}{An \linkS4class{sp}.}
-
-\item{...}{Arguments passed to other methods.}
+\item{object}{an sp object \linkS4class{sp}.}
 
 \item{addlabels}{logical value. If TRUE, labels are added at the top of bars or
 points showing the information retained by each dimension.}
@@ -26,13 +21,16 @@ points showing the information retained by each dimension.}
 \item{ncp}{a numeric value specifying the number of dimensions to be shown.
 The attribute of this column should be a character vector or a factor.}
 
-\item{ggtheme}{function, ggplot2 theme name.}
+\item{ggtheme}{ggplot2 theme name.}
 
 \item{name}{There are two options in total:
-\itemize{ \item RAW :
-  Visualize the PCA results of the original data.
-  \item RID : Visualize the PCA results of the data with individual differences removed.}}
+\itemize{ \item clean :
+  Visualize the PCA results of the slot clean_data.
+  \item RID : Visualize the PCA results of the slot RID_bootstrap.}}
+}
+\value{
+ggplot object.
 }
 \description{
-Visualize the variances of pca dimensions for the given sp object.
+Visualize the variances of pca dimensions for the sp object.
 }

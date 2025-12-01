@@ -2,18 +2,13 @@
 % Please edit documentation in R/mvi.R
 \name{mvi}
 \alias{mvi}
-\alias{mvi.data.frame}
 \title{mvi}
 \usage{
-mvi(x, ...)
-
-\method{mvi}{data.frame}(x, method = "impseqrob", nmr = 0, ...)
+mvi(x, method = "impseqrob", nmr = 0)
 }
 \arguments{
-\item{x}{A protein expression matrix, where the row names are protein
+\item{x}{A protein expression matrix (data.frame format), where the row names are protein
 or gene IDs and the column names are sample names.}
-
-\item{...}{Arguments passed to other methods.}
 
 \item{method}{Methods for missing value imputation: There are four methods in total,
 namely impseqrob (Robust sequential imputation), impseq (Sequential imputation),
