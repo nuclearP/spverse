@@ -6,7 +6,7 @@
 
 ## Installation
 
-Please note, you may find the [SeqKnn](https://github.com/cran/SeqKnn) package can not be installed rightly as it has not been updated for a long time. If so, please download this package from here: [SeqKnn_1.0.1.tar.gz](https://github.com/nuclearP/spverse/SeqKnn_1.0.1.tar.gz).
+Please note, you may find the [SeqKnn](https://github.com/cran/SeqKnn) package can not be installed rightly as it has not been updated for a long time. If so, please download this package from here: [SeqKnn_1.0.1.tar.gz](https://github.com/nuclearP/spverse/blob/main/SeqKnn_1.0.1.tar.gz).
 
 ```R
 # install.packages("pak")
