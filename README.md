@@ -1,4 +1,4 @@
-# spverse <img src="[spverse-book/picture at main · nuclearP/spverse-book](https://github.com/nuclearP/spverse-book/tree/main/picture)" align="right" height="200" />
+# spverse <img src="https://github.com/nuclearP/spverse-book/tree/main/picture/logo.png" align="right" height="200" />
 
 - Spatial omics is a frontier that provides plentiful information regarding gene expression and functions with characteristics of spatial distribution, of which the technology and bioinformatics related to spatial transcriptomics have reached a maturation level, whereas that in spatial proteomics is still at an infant phase. As spatial proteome sampling from tissues and identifying as well as quantifying on peptides are so different from spatial transcriptome, all the procedures of data analysis are reasoned a proteome specific mode. Besides, the ideas on mining the spatial information of transcriptomes and the datasets of single cell transcriptomes should be used as references to develop informatic tool of spatial proteomics. Herein, we have elaborated a workflow of data analysis towards spatial proteomics with R package, termed as spverse.
 
