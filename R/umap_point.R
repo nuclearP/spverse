@@ -37,10 +37,26 @@ umap_point <- function(x,group,pal=NULL,shape=NULL,legend_row=1){
            y = "UMAP2",
            color="Group")
   }else if(shape == "chull") {
+
+    groups <- unique(umap_df[["sample"]])
+    hull_df <- data.frame()
+
+    for (g in groups) {
+      group_data <- as.data.frame(lapply(subset(umap_df, sample == g), unlist))
+      x <- as.vector(group_data[, 1])
+      y <- as.vector(group_data[, 2])
+
+      # 计算凸包顶点索引
+      idx <- chull(x, y)
+      hull_points <- group_data[idx, ]
+      hull_points <- rbind(hull_points, hull_points[1, ])
+      hull_df <- rbind(hull_df, hull_points)
+    }
+
     p <- ggplot(umap_df,aes(x = V1,y = V2,color = sample))+
       geom_point(size = 1.5)+
-      geom_encircle(aes(group = sample,fill = sample),expand=0,spread=0.5,s_shape=0.9,color = "gray50",alpha = 0.25,show.legend = F)+
-      # theme_classic()+
+      geom_polygon(data = hull_df, aes(x = hull_df[,1], y = hull_df[,2], color = sample, fill = sample),
+                   alpha = 0.1,show.legend = F) +
       labs(x = "UMAP1",
            y = "UMAP2",
            color="Group")
@@ -49,21 +65,13 @@ umap_point <- function(x,group,pal=NULL,shape=NULL,legend_row=1){
   }
 
   if(!is.null(pal)){
-    p <- p +
-      theme_dr(xlength = 0.2,
-               ylength = 0.2,
-               arrow = grid::arrow(length = unit(0.1, "inches"),
-                                   ends = 'last', type = "closed"))+
+    p <- p + theme_classic()+
       theme(panel.grid = element_blank())+
       theme(legend.position = "bottom")+
       scale_color_manual(values = pal,guide = guide_legend(nrow = legend_row))+
       scale_fill_manual(values = pal)
   }else{
-    p <- p +
-      theme_dr(xlength = 0.2,
-               ylength = 0.2,
-               arrow = grid::arrow(length = unit(0.1, "inches"),
-                                   ends = 'last', type = "closed"))+
+    p <- p + theme_classic()+
       theme(panel.grid = element_blank())+
       theme(legend.position = "bottom")+
       scale_color_discrete(guide = guide_legend(nrow = legend_row))

@@ -40,8 +40,23 @@ pca_point <- function(x,group,pc=c(1,2),pal=NULL,shape="chull",legend_row=1){
   df1 <- dplyr::mutate(df1,group = group)
 
   if(shape == "chull"){
+
+    groups <- unique(df1[["group"]])
+    hull_df <- data.frame()
+
+    for (g in groups) {
+      group_data <- as.data.frame(lapply(subset(df1, group == g), unlist))
+      x <- as.vector(group_data[, 1])
+      y <- as.vector(group_data[, 2])
+
+      # 计算凸包顶点索引
+      idx <- chull(x, y)
+      hull_points <- group_data[idx, ]
+      hull_points <- rbind(hull_points, hull_points[1, ])
+      hull_df <- rbind(hull_df, hull_points)
+    }
+
     p.pca1 <- ggplot(data = df1,aes(x = df1[,1],y = df1[,2],color=group))+
-      geom_encircle(aes(group = group,fill = group),expand=0,spread=0.5,s_shape=0.9,color = "gray50",alpha = 0.25,show.legend = F)+
       geom_point(size = 1.5)+
       labs(x = xlab1,y = ylab1,color = "Group")+
       theme_classic()+

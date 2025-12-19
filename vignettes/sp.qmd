@@ -1,0 +1,68 @@
+---
+title: "spverse"
+format: html
+author: 
+- name: Haichao Zhou
+  email: zhouhaichao@genomics.cn
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{spverses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{quarto::html}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+knitr::opts_chunk$set(tidy = FALSE,
+                      warning = FALSE,
+                      message = FALSE,
+                      cache = FALSE)
+```
+
+# Overview
+
+[spverse](https://github.com/nuclearP/spverse) is an R package designed for spatial proteomics data analysis, which integrates four core functional modules: data preprocessing, individual difference assessment and alleviation, local spatial proteomics data analysis, and global spatial proteomics data analysis.
+
+## Supported Analysis
+
+-   *data preprocessing :*
+
+    -   low-quality sample removal
+
+    -   data normalization
+
+    -   missing value imputation
+
+-   *individual difference assessment and alleviation :*
+
+    -   individual difference assessment
+
+    -   individual difference alleviation
+
+    -   dimensionality reduction (PCA, PLS-DA, UMAP)
+
+    -   cluster analysis
+
+-   *local spatial proteomics :*
+
+    -   differential analysis
+
+    -   trend analysis
+
+    -   pathway analysis (GSVA, GSEA)
+
+    -   cell type deconvolution
+
+-   *global spatial proteomics :*
+
+    -   grid definition
+
+    -   spatial autocorrelation analysis (Moran’s I and JCA analysis)
+
+    -   super-resolution analysis
+
+# Vignette
+
+Please go to <https://nuclearp.github.io/spverse-book/> for the full vignette.

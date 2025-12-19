@@ -23,7 +23,6 @@ Imports:
     umap,
     factoextra,
     ggrepel,
-    tidydr,
     harmony,
     boot,
     readxl,
@@ -36,10 +35,10 @@ Imports:
     car,
     GSVA (>= 1.50.0),
     clusterProfiler,
+    GSEABase,
     fgsea,
     Mfuzz,
     DreamAI,
-    ggalt,
     ConsensusClusterPlus,
     ComplexHeatmap,
     mixOmics,
@@ -48,10 +47,10 @@ Imports:
     jjPlot
 Suggests: 
     testthat (>= 3.0.0),
-    org.Hs.eg.db
+    org.Hs.eg.db,
+    quarto
 Remotes:
     WangLab-MSSM/DreamAI/Code,
-    hrbrmstr/ggalt,
     ConsensusClusterPlus,
     jokergoo/ComplexHeatmap,
     mixOmicsTeam/mixOmics,
@@ -59,6 +58,8 @@ Remotes:
     Moonerss/CIBERSORT,
     junjunlab/jjPlot
 Config/testthat/edition: 3
+VignetteBuilder: quarto
+ByteCompile: true
 Depends: 
     glmnet,
     Biobase,
